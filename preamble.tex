@@ -1,0 +1,52 @@
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{xhfill}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{esint}
+\usepackage{hyperref}
+\usepackage[most]{tcolorbox}
+\usepackage[section]{algorithm}
+\usepackage{algpseudocode}
+
+
+\graphicspath{ {./imgs/} }
+\usepackage[
+  a4paper,
+  textwidth=175mm,
+  textheight=225mm,
+  heightrounded,
+]{geometry}
+
+
+\newtheorem{theorem}[algorithm]{theorem}
+\newtheorem{corollary}[algorithm]{corollary}
+\newtheorem{lemma}[algorithm]{lemma}
+\newtheorem{definition}[algorithm]{definition}
+\newtheorem{remark}[algorithm]{remark}
+\newtheorem*{aremark}{added remark}
+\newtheorem{example}[algorithm]{example}
+\newtheorem*{adefinition}{added definition}
+\newtheorem*{aexample}{added example}
+
+
+
+\def\C{\mathbb{C}}
+\def\R{\mathbb{R}}
+\def\N{\mathbb{N}}
+\def\Z{\mathbb{Z}}
+\def\E{\mathbb{E}}
+\def\V{\mathbb{V}}
+\def\rang{\text{rang}}
+\def\cond{\text{cond}}
+\def\eps{\text{eps}}
+\raggedright
+
+
+\newcommand{\importvl}[3]{\noindent\xrfill[0.7ex]{1pt}Anfang von Vorlesung #1 am #2\xrfill[0.7ex]{1pt}\input{#3}\noindent\xrfill[0.7ex]{1pt}Ende von Vorlesung #1 am #2\xrfill[0.7ex]{1pt}}
