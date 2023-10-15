@@ -1,0 +1,144 @@
+\subsection{Helmholz equation}
+
+\underline{\textbf{Observation:}} Waves are quite often \underline{time-periodic}, i.e.
+\[p(t,x)=e^{\pm i\omega t}\hat{p}(x),\omega>0\]
+
+Substituting into the wave equation:
+
+\begin{align*}
+    0&=-\omega^2 p(t,x)-c^2\Delta_x p(t,x)\\
+    &= e^{i\omega t}\left(-\omega^2 \hat{p}(x)-c^2\Delta_x \hat{p}(x) \right)\\
+    \implies -\Delta_x \hat{p}(x)-\underbrace{\frac{\omega^2}{c^2}}_{=k^2}\hat{p}(x)=0,x\in\Omega
+\end{align*}
+
+If the boundary data are time periodic as well, $g(t,x)=e^{i\omega t} g(x)$, we obtain the \underline{\textbf{Helmholz equation:}}
+
+\begin{eqnarray}
+    \begin{cases}
+        -\Delta \hat{p}(x)-k^2\hat{p}(x)=0 & x\in \Omega\\
+        \hat{p}(x)=\hat{g}(x) & x\in \Gamma
+    \end{cases}
+\end{eqnarray}
+
+\underline{\textbf{Advantage:}} We have gotten rid of the time-dimension.
+
+\subsection{Characterization of partial differential equations}
+
+\underline{\textbf{Question:}} Can we find some structure in the \underline{partial differential equations} above?
+
+\underline{\textbf{Observation:}} Given a sufficiently smooth function $u:\Omega\to\R$, all of the above PDE can be written in terms of a 
+general \underline{partial differential operator}
+\begin{equation}
+    (Lu)(x)=-\sum_{i,j=1}^d a_{i,j}(x)\frac{\partial^2}{\partial x_i\partial x_k}u(x)+\sum_{i=1}^d b_i(x)\frac{\partial}{\partial x_i}u(x)+c(x)\cdot u(x)  
+\end{equation}
+where \[A(x)=[a_{i,j}(x)]_{i,j}^d\in C(\overline{\Omega})^{d\times d}\]
+\[b(x)=[b_{i}(x)]_{i=1}^d\in C(\overline{\Omega})^{d}\]
+\[c(x)\in C(\overline{\Omega})\]
+
+\underline{\textbf{Observation}}: For $u\in C^2(\Omega)$ we have \[\frac{\partial^2}{\partial x_i\partial x_j}u=\frac{\partial^2}{\partial x_j\partial x_i}u\]
+$\implies$ w.l.o.g. we cab assume that $A(x)$ is symmetric.
+$\implies A(x)$ has real eigenvalues.
+
+\begin{definition}
+We call $-\sum_{i,j=1}^d a_{i,j}(x)\frac{\partial^2}{\partial x_i \partial x_j}u(x)$ the \underline{\textbf{principle part}} of the operator. 
+Partial differential operators are called 
+\begin{itemize}
+    \item \underline{\textbf{elliptic in $x\in\Omega$}} if all eigenvalues of $A(x)$ are positive
+    \item \underline{\textbf{parabolic in $x\in \Omega$}} if $d-1$ eigenvalues of $A$ are positive, one eigenvalue vanishes and \[\text{rank}\begin{pmatrix}
+         A(x)&  b(x)
+    \end{pmatrix}=d\]
+    \item \underline{\textbf{hyperbolic in $x\in \Omega$}} if $d-1$ eigenvalues of $A(x)$ are positive and one eigenvalue is negative.
+\end{itemize}  
+A partial differential operator is called elliptic, parabolic, hyperbolic if it is so for all $x\in \Omega$
+\end{definition}
+
+\begin{example}
+    \begin{itemize}
+        \item Laplace and Poisson equations are elliptic
+        \item The heat equation is parabolic
+        \item The wave equation is hyperbolic
+        \item The Helmholz equation is elliptic
+    \end{itemize}
+\end{example}
+
+
+These three classes have fundamentally different properties.
+
+\begin{itemize}
+    \item Elliptic PDE are (mostly) similar to Laplace od Poisson equations. For $f\in C(\Omega),g\in C(\Omega)$, look for $u\in C^2(\Omega)\cap C(\overline{\Omega})$ s.t. \[\begin{cases}
+        \mathcal{L}u=f & \text{in } \Omega\\
+        u=g & \text{on } \partial \Omega
+    \end{cases}\] These boundary conditions are called \underline{\textbf{Dirichlet}} boundary conditions. They can be replaced by  \underline{\textbf{Neumann boundary conditions}} $\frac{\partial u}{\partial n}=g$ an others.
+    \item Parabolic PDE: The coordinate direction from the vanishing eigenvalue is usually taken as time derivative, while the rest of the differential operator is elliptic, call it $\mathcal{L}$. Write\[\frac{\partial}{\partial t}u+\mathcal{L}u=f\]
+    \item Hyperbolic PDE: Take the coordinate direction with the negative eigenvalue as time. Write \[\frac{\partial^2}{\partial t^2}u+\mathcal{L}u=f\]
+\end{itemize}
+
+\underline{\textbf{Observation:}} We need to look at elliptic differential operators.
+
+\underline{\textbf{Question:}} When is it reasonable to look at solutions to PDE?
+
+\begin{definition}
+    A problem is \underline{well-posed} if there exists a solution, the solution is unique and it depends continuously on the data.  
+\end{definition}
+
+\underline{\textbf{Question:}} Are the PDE above well posed?
+
+\subsection{Maximum principle}
+
+\underline{\textbf{Simplification:}} Consider a bounded domain $\Omega\subset \R^d$ and
+\begin{equation}
+    (\mathcal{L}u)(x)=-\sum_{i,j=1}^d a_{i,j}(x)\frac{\partial^2}{\partial x_i \partial x_j}u(x)
+\end{equation}
+which is elliptic.
+
+\begin{theorem}[Maximum principle]
+    Let $u\in C^2(\Omega)\cap C(\overline{\Omega})$ a solution to $\mathcal{L}(u)=f\leq 0$. Then $u$ attains its maximum on the boundary, i.e. 
+    \[\max_{x\in \overline{\Omega}}u(x)=\max_{x\in\partial \Omega} u(x)\]
+\end{theorem}
+
+\begin{proof}
+    \underline{\textbf{Case 1: $f<0$}} Assume there is $y\in \Omega$ with $u(y)=\max_{x\in\overline{\Omega}}>\max_{x\in\Gamma} u(x)$.
+
+    \underline{\textbf{Observation:}} $A(x)$ is symmetric, $\mathcal{L}$ is elliptic.
+
+    $\implies A(y)$ is symmetric and has positive, real eigenvalues.
+
+    $\implies $ there is $Q\in\R^{d\times d}$ such that \[QA(y)Q^t\]
+    is diagonal and has positive entries.
+
+
+    \underline{\textbf{Observation:}}  Rotating the coordinate system on $\Omega$ by $Q$, i.e., setting $\zeta=Qx$ changes the differential operator to our advantage.
+    \[(\mathcal{Lu})(\zeta)\stackrel{\text{exercise}}{=}-\sum_{i,j=1}^d\left(QA(\zeta)Q^t\right)_{ij}\frac{\partial^2}{\partial \zeta_i\partial\zeta_j}u(\zeta)\]
+
+    \[\implies ()\mathcal{L}u)(y)=-\sum_{i,j=1}^d\underbrace{\left(QA(y)Q^t\right)_{ij}\frac{\partial^2}{\partial \zeta_i\partial\zeta_j}_{=0\text{ if } i\neq j}}u(\zeta)\]
+
+    \[=-\sum_{i=1}^d \underbrace{(QA(y)Q^t)_{ii}}_{>0}\frac{\partial^2}{\partial \zeta_i^2}u(\zeta)\]
+
+    \underline{\textbf{Observation:}} $y$ is an extremal point of $u$ 
+    \[\implies \partial_{\zeta_i}u(y)=0,  \frac{\partial^2}{\partial \zeta_i^2}u(y)\leq 0\]
+
+    $f(y)=(\mathcal{L}u)(y)=-\sum_{i=1}^d\left(QA(y)Q^t\right)_{ii}\frac{\partial^2}{\partial \zeta_i^2}u(y)\geq 0$
+
+    Contradiction to $f<0$.
+
+    \underline{\textbf{Case: $f\leq 0$}}
+
+    \underline{\textbf{Assumption:}} As before assume there is $y\in\Omega$, s.t. $u(y)=\max_{x\in\overline{\Omega}}>\max_{x\in\Gamma} u(x)$.
+
+    \underline{\textbf{Observation:}} Setting \[h(x)=\left\Vert x-y \right\Vert_2^2=\sum_{i=1}^d \left\vert x_i-y_i \right\vert^2\]
+    and $\delta>0$ small enough and set $w = \delta h$.
+    
+    For $\delta$ small enough, $w$ has its maximum in $\Omega$.
+
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
