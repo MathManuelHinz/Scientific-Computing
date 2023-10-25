@@ -1,0 +1,135 @@
+
+
+\subsection{Convergence of the finite difference method}
+
+\underline{\textbf{Notation:}} \[\left\Vert v_h \right\Vert_{\Omega_h}=\max_{x\in\Omega_h}|v_h(x)|,\left\Vert v_h \right\Vert_{\overline{\Omega}_h}=\max_{x\in\overline{\Omega}}|v_h(x)|\]
+
+\begin{definition}
+    Let $\mathcal{L}_h$ denote the finite difference approximation of $\mathcal{L}$ from (1.12). The corresponding finite difference method 
+    is called 
+    \begin{itemize}
+        \item \underline{\textbf{convergent}} of order $p$, if the solution to the PDE satisfies \[\left\Vert u-h_h \right\Vert_{\overline{\Omega}_h}=O(h^p).\]
+        \item \underline{\textbf{consistent}} of order $p$, if \[\left\Vert \L u -\L_hu \right\Vert_{\overline{\Omega}_h}=O(h^p)\]
+        \item \underline{\textbf{stable}}, if there exists $C_s>0$ s.t. for all \[u_h:\Omega_h\to \R\] with $u_h|_{\Gamma_h}=0$ it holds \[\left\Vert u_h \right\Vert_{\overline{\Omega}_h}\leq C_s \left\Vert \L_h u_h \right\Vert_{\Omega_n}\]
+    \end{itemize}
+\end{definition}
+
+\begin{remark}
+    The $5$-point stencil yields consistency order $p=2$.
+\end{remark}
+
+\begin{aremark}
+    stability means that our solution depends continuously on our data.
+\end{aremark}
+
+\begin{remark}
+    Let $v_h$ be the coefficient vector of $v_h:\Omega_h\to\R$. Let $w_h=A_h v_h$ be the coefficient vector to $w_h=\L_h v_h$.
+
+    $\implies \underbrace{\left\Vert v_h \right\Vert_{\infty}}_{=\left\Vert v_h \right\Vert_{\overline{\Omega}_h}}=\left\Vert A_h^{-1} w_h \right\Vert_{\infty}$
+    
+    \begin{align*}
+        \left\Vert v_h \right\Vert_{\infty}\stackrel{\text{stability}}{\leq} C_s \left\Vert \L_h v_h \right\Vert_{\Omega_h}=C_s \left\Vert A_h v_h  \right\Vert_{\infty} = C_s \left\Vert w_n \right\Vert_\infty,
+    \end{align*}
+    i.e. $A_h$ is boundedly invertible and has the same continuity constant for all $h>0$.
+\end{remark}
+
+\begin{theorem}
+    If a finite difference scheme is stable and consistent of order $p$, then it is also convergent of order $p$. 
+\end{theorem}
+
+\begin{proof}
+
+    \[\left\Vert u-u_h \right\Vert_{\overline{\Omega}_h}\stackrel{\text{stability}}{\leq} C_s \left\Vert \L_h(u-u_h) \right\Vert_{\Omega_h}=C_s \left\Vert \L_h u -\underbrace{\L_h u_h}_{=f=\L u} \right\Vert_{\Omega_h}=C_s \left\Vert \L_h u\L u\right\Vert_{\Omega_h}=O(h^p)\]. 
+
+\end{proof}
+
+\underline{\textbf{Observation:}} We need to show stability of (2.2). Then the last theorem yields convergence.
+
+\underline{\textbf{Idea:}} Stability is nothing else than continuous dependence on the right-hand side. Adpot the proof of Corollary 1.11 to the discrete setting.
+
+\begin{corollary}
+    Let $\Omega$ be given as a disjoint union of cubes of equal size and assume $u\in C^4(\overline{\Omega})$ and satisfies 2.1. Then the finite difference approximation $u_h$ converges with 
+    \[\left\Vert u-u_h \right\Vert_{\overline{\Omega}_h}=O(h^2)\]
+\end{corollary}
+
+\begin{proof}
+    Corollary of the following lemma.
+\end{proof}
+
+\begin{lemma}
+    Let $R>0$ s.t. $\Omega\subset B_R(0)$ and let $u_h:\Omega_h\to R$ with $u_h|_{\Gamma_h}=0$. Then it holds 
+    \[\left\Vert u_h \right\Vert_{\overline{\Omega}_h}\leq \frac{R^2}{2d}\left\Vert \Delta_h u_h \right\Vert_{\overline{\Omega}_h},\]
+    i.e., the finite difference approximation is stable.
+\end{lemma}
+
+\begin{proof}
+    Exercise
+\end{proof}
+
+\underline{\textbf{Problem.}} 
+\begin{itemize}
+    \item We are restricted to very specific domains.
+    \item Strong smoothness requirements 
+    \item Special treatment of more involved differential operators required.
+\end{itemize}
+
+
+\section{Variational formulation}
+
+\subsection{Sobolev spaces}
+
+\underline{\textbf{Notation:}} 
+\begin{itemize}
+    \item $\Omega\subset \R^d$ bounded domain in $\R^d$.
+    \item $L^2(\Omega)=\{f:\Omega\to\R:\int |f(x)|^2 dx < \infty\}$.
+    \item We identify to functions, which are equal up to a set of points of measure zero.
+    \item Equip $L^2(\Omega)$ with the inner product \[(u,v)_{}L^2(\Omega)=\int_\Omega u(x)v(x)dx\] inducing the norm \[\left\Vert u \right\Vert_{L^2(\Omega)}=\sqrt{(u,u)_{L^2(\Omega)}}\] With this inner product, $L^2(\Omega)$ is a Hilbert space.
+\end{itemize}
+
+\begin{definition}
+    Define $C_0^\infty(\Omega)=\{f\in C^\infty(\Omega):\text{supp } f\subset U, U \subset \Omega \text{compact}\}$.
+
+    A function $u\in L^2(\Omega)$ has a \underline{\textbf{weak derivative}} $v=\partial^\alpha u\in L^2(\Omega)$ such that
+    \[(\partial^\alpha u,\varphi)_{L^2(\Omega)}=(-1)^{|\alpha|}(u,\partial^\alpha \phi)_{L^2(\Omega)}\]
+    for all $\varphi\in C_0^\infty(\Omega)$.
+\end{definition}
+
+\underline{\textbf{Oberservation:}} For $u\in C^1(\overline{\Omega})$ and $\varphi\in C_0^\infty(\Omega)$:
+\begin{align*}
+    (\partial_i u,\varphi)_{L^2(\Omega)}+(u,\partial_i \varphi)_{L^2(\Omega)}&=\int_{\Omega}\underbrace{\partial_i(u\varphi)}_{\text{div}\begin{pmatrix}0\\vdots\\u\varphi\\0\vdots \\0\end{pmatrix}}dx\\
+    &= \int _{\partial \Omega} u\varphi n_i d\sigma_x=0
+\end{align*}
+
+$\implies (\partial_i u,\varphi)_{L^2(\Omega)}=-(u\partial_i \varphi)_{L^2(\Omega)},\phi\in C_0^\infty(\Omega)$.
+
+$\imlies$ the classical derivative is also a weak derivative.
+
+\begin{definition}
+    For $m\in \N_0$ we define \underline{\textbf{Sobolev spaces}} $H^m(\Omega)$ as the set of all functions $u\in L^2(\Omega)$ where $\parital^\alpha u\in L^2(\Omega),|\alpha|<m$.
+\end{definition}
+
+\begin{theorem}
+    The Sobolev spaces $H^m(\Omega),m\in\N_0$ are Hilbert spaces, when equipped with the inner product 
+    \[(u,v)_{H^m(\Omega)}=\sqrt{\sum_{|\alpha|\leq m}(\partial^\alpha u \partial^\alpha v)_{L^2(\Omega)}}\]
+    and induced norm 
+    \[\left\Vert u \right\Vert_{h^m(\Omega)}=\sqrt{\sum_{|\alpha|\leq m}\left\Vert \partial^\alpha u \right\Vert^2_{L^2(\Omega)}}\geq \left\Vert \partial^\beta u \right\Vert_{L^2(\Omega)},|\beta|\leq m\]
+\end{theorem}
+
+\begin{proof}
+\underline{\textbf{Need to check:}} $H^m(\Omega)$ is complete w.r.t. $\left\Vert \cdot \right\Vert_{H^m(\Omega)}$.
+Let $\{v_n\}_{n\in \N}$ be a Cauchy sequence in $H^m(\Omega)$ w.r.t. $\left\Vert \cdot \right\Vert_{H^m(\Omega)}$.
+\begin{align*}
+    \{\partial^\alpha v_n\}_{n\in \N}, |\alpha|<m \text{ are also Cauchy sequences w.r.t } \left\Vert \cdot \right\Vert_{L^2(\Omega)}.\\
+    \stackrel{L^2(\Omega)\text{ complete}}{\implies}\{\partial^\alpha v_n\}_{n\in\N}\text{ has a limit }v^\alpha = \lim_{n\to\infty}\partial^\alpha v_n
+\end{align*}     
+
+\underline{\textbf{To show:}} $v^\alpha=\partial^\alpha v$ for $v=v^0$
+
+\underline{\textbf{Note:}} $(\partial^\alpja v_n-v^\alpha,\varphi)_{L^2(\Omega)}\stackrel{C.S.}{\leq} \left\Vert \partial^\alpha v_n-v^\alpha \right\Vert_{L^2(\Omega)} \left\Vert \varphi \right\Vert_{L^2(\Omega)}$
+
+\[\implies (\partial^\alpha v_n,\varphi)_{L^2(\Omega)}\to (v^\alpha,\varphi)_{L^2(\Omega)}\text{ for all } \varphi\in C_0^\infty(\Omega).\]
+
+$\implies (v^\alpha,\varphi)_{L^2(\Omega)}=\limit_{n\to\infty} (\partial^\alpha v_n,\varphi)_{L^2(\Omega)}=\lim_{n\to\infty}(-1)^{|\alpha|}(v_n,\partial^\alpha\varphi)_{L^2(\Omega)}=(-1)^{|\alpha|}(v,\partial^\alpha \varphi)_{L^2(\Omega)}$.
+
+\end{proof}
+

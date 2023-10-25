@@ -1,0 +1,146 @@
+
+
+\underline{\textbf{Idea:}} For $x\in\Omega$, we have 
+\[\Delta u(x)=-\sum_{i=1}^d (\partial_i^{+h}\partial_i^{-h}u)(x)+O(h^2)\]
+\underline{\textbf{Idea:}} Introduce a equally spaced grid on $\Omega$:
+%Pic
+Discrete Domain $\Omega_h=\{x\in \Omega: x=hk,k\in\Z^d\}$.
+
+Discrete Boundary $\Gamma_h=\{x\in\Gamma:\exists 1 \leq i \leq d: x_i=hk_i,k_i\in \Z\}$.
+
+Set $\overline{\Omega}_h=\Omega_h\cup\Gamma_h$, $\overline{\Omega}_h\setminus \Gamma_h$ interior points.
+
+\underline{\textbf{Observation:}} If $\Omega$ is a disjoint union of equal cubes, then
+we can modify (2.1) to \[\begin{cases}
+    \Delta_h u_h(x)=f(x) & \in\overline{\Omega}_h\setminus \Gamma_h\\
+    u_h(x)=g(x) & x\in \Gamma_h
+\end{cases}\]
+
+This corresponds to a system of linear equations!
+
+\begin{example}
+    $\Omega=(0,1)^2,n\in\N,h=\frac{1}{n},y_{ij}h(i,j),i,j=0,\dots,n$
+
+    Assume: $g=0$, Abbreviate $u_{ij}\coloneqq u(x_{ij})$, then 
+\begin{align*}
+    \Delta_hu_h(x_{ij})&=\frac{4u_{ij}-u_{i-1j}-u_{i+1j}-u_{ij-1}-u_{ij+1}}{h^2}\\
+    &=\frac{1}{h^2}\begin{bmatrix}
+        &-1 &\\
+        -1 & 4 & -1\\
+        & -1 &
+    \end{bmatrix}u(x_{ij})
+\end{align*}
+
+This is called the \underline{\textbf{5-point finite difference stencil}}. Set $f_{ij}\coloneqq f(x_{ij})$.
+
+\begin{align*}
+    \implies \frac{4u_{ij}-u_{i-1j}-u_{i+1j}-u_{ij-1}-u_{ij+1}}{h^2} = f_{ij}& i=1,\dots, n-1\\
+    u_{ij}=0 & i=\{0,1\}, j\in \{0,1\}.
+\end{align*}
+
+We cna write this in matrix form as 
+\begin{align*}
+    \frac{1}{h^2}\begin{bmatrix}
+        A  & -I &  &  &&\\
+        -I & A & -I &  & & \\
+        & \ddots & \ddots & \ddots &&\\
+        &&\ddots &\ddots & -I\\
+        &&&-I&A
+    \end{bmatrix}\begin{bmatrix}
+        u_1\\
+        \vdots\\
+        \vdots\\
+        u_{n-1}
+    \end{bmatrix}=\begin{bmatrix}
+        f_1\\
+        \vdots\\
+        \vdots\\
+        f_{n-1}
+    \end{bmatrix}
+\end{align*}
+
+where 
+
+\begin{align*}
+    A=\begin{bmatrix}
+        4 & -1 & & & & \\
+        -1 &\ddots & \ddots& & &\\
+        & \ddots &\ddots & \ddots& &\\
+        && \ddots & \ddots & \ddots \\
+        & &&\ddots & \ddots & -1\\
+        &&&&-1&4
+    \end{bmatrix}
+    u_i=\begin{bmatrix}
+        u_{i,1}\\
+        \vdots\\
+        u_{i,n-1}
+    \end{bmatrix}
+    f_i=\begin{bmatrix}
+        f_{i,1}\\
+        \vdots\\
+        f_{i,n-1}
+    \end{bmatrix}
+\end{align*}
+
+\end{example}
+
+
+\begin{remark}
+    The same approach can be applied to more partial differential operators, but a few technicalities need to be considered.
+\end{remark}
+
+\begin{remark}
+    More general domains (non-cuboids) can be dealt with by modifying the stencils close to the boundary. However in general, this will only lead to $O(h)$ approximations, rather than $O(h^2)$    
+\end{remark}
+
+\underline{\textbf{Question:}} Are the systems of linear equations uniquely solvable?
+
+\subsection{The discrete maximum principle}
+
+\underline{\textbf{Observation:}} Applying a finite difference stencil amounts to computing a weighted average of functions values.
+The value of the stencil can not be larger as the maximum of the values where it is applied to.
+
+\begin{lemma}[Star lemma]
+    Let $k>0$ and consider numbers $\alpha_0,\dots,\alpha_k$ with $\alpha_1,\dots,\alpha_k<0$ and $p_0,\dots,p_k$ such that
+    \[\sum_{l=0}^k \alpha_l\geq 0, \sum_{l=0}^k \alpha_lp_l\leq 0.\]
+
+    Assume that $p_0\geq 0$ or $\sum_{l=0}^k\alpha_l=0$, then if $p_0\geq \max_{1\geq l\geq k} p_l$, it holds that 
+    \[p_0=p_1=\dots=p_k\]
+\end{lemma}
+
+\begin{proof}
+\begin{align*}
+    0&\geq \sum_{k=0}^l \alpha_l p_l-p_0\sum_{l=0}^k\alpha_l\\
+    =\sum_{l=0}^k \alpha_l(p_l-p_0)=\sum_{l=1}^k \underbrace{\underbrace{\alpha_l}_{< 0} \underbrace{(p_l-p_0)}_{\geq 0}}_{\geq 0} \geq 0
+\end{align*}
+which implies the assertion.    
+\end{proof}
+
+\begin{theorem}[Discrete maximum principle]
+
+    Let $u_h$ be the solution to $\Delta_h u_h=f$, with $f\leq 0$ and assume that $\Omega_h$ is (discretely) connected. Then it holds
+    \[\max_{x\in \overline{\Omega}_h \setminus \Gamma_h} u_h(x)\leq \max_{x\in\Gamma_h} u_h(x).\]
+
+\end{theorem}
+
+\begin{proof}
+    Assume that the maximum is attained at $y\in \overline{\Omega}_h \setminus \Gamma_h$, set $p_0=u_h(y)$. Identify $p_1,\dots,p_k$ with 
+    the values of $u_h$ on the neighboring grid cells, and $\alpha_0,\dots,\alpha_k$ with the weights of the stencil.
+
+    \begin{align*}
+        0\geq f(y) = (\Delta_h u_h)(y) = \sum_{l=0}^k \alpha_l p_l.\\
+        \stackrel{\text{Star lemma}}{\implies} p_0=\dots = p_k
+    \end{align*}
+    i.e., $u_h(y)$ at points in eastern, western, southern and northern direction is equal to $u_h$.
+
+    Proceed iteratively by marching to the boundary.
+\end{proof}
+
+All implications of the continuous case transfer to the discrete case. Most importantly:
+\begin{corollary}
+    Under the assumptions of (last theorem), the solution of (2.2) is unique.
+\end{corollary}
+
+
+
+

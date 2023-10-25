@@ -1,0 +1,152 @@
+
+
+\begin{proof}(continued)
+    \underline{\textbf{Case $f\leq 0$:}}
+   
+    \underline{\textbf{Assumption:}} There exists \[y\in \Omega \text{ s.t. }u(y)=\max_{x\in\Omega}u(x)>\max_{x\in \Gamma}u(x)\]
+
+    \underline{\textbf{Observation:}} \[h(x)=\left\Vert x-y \right\Vert_2^2 = \sum_{i=1}^{d} (x_i-y_i)^2\]
+    and $u$ is convex.
+
+    For $\delta>0$ small enough, set \[w=u+\delta h\]
+    such that $w$ still attains its maximum in $\Omega$.
+
+    \underline{\textbf{Observe:}} 
+    \[\frac{\partial^2}{\partial x_i \partial x_j} h(x)=2\delta_{ij}\]
+    \[\implies (\mathcal{L}w)(x)=\underbrace{\mathcal{Lu}(x)}_{=f\leq 0}+\underbrace{\delta(\mathcal{L}h)(x)}_{=- \sum_{j=1}^d a_{i,j}(x)\frac{\partial^2}{\partial x_i \partial x_j} h(x)\frac{\partial^2}{\partial x_i \partial x_j} h(x)=\star}<0\]
+    \[\star=-2\sum_{i=1}^{d} a_{ii}\]
+    $A=[a_{i,j}(x)]_{i,j=1}^d$ has positive eigenvalues. $\implies A(x)$ is positive definite.
+
+    $\implies z^t A(x)z>0$ for $\neq 0 \implies a_{ii}=e_i^t A(x)e_i>0$
+
+    Proceed as in the first case $f<0$ to obtain a contradiction.
+\end{proof}
+
+\begin{corollary}(Minimum principle)
+    If $\mathcal{L}u=f\geq 0$ in $\Omega$, then $u$ attains its minimum on the boundary.
+\end{corollary}
+
+\begin{proof}
+    Apply the maximum principle to $-u$.
+\end{proof}
+
+\begin{corollary}[Comparison principle]
+    If $\mathcal{L}u\leq \mathcal{L}v$ in $\Omega$ and $u\leq v$ on $\partial\Omega$ then $u\leq v$ in $\overline{\Omega}$.
+\end{corollary}
+
+\begin{proof}
+    Set $w=u-v$ and apply the maximum principle.
+\end{proof}
+
+\begin{corollary}[]Uniqueness
+    There is at most $1$ solution to \[\begin{cases}\mathcal{L}u=f & \in\Omega\\ u=g & \in \partial \Omega\end{cases} \] 
+\end{corollary}
+
+\begin{proof}
+    Exercise.
+\end{proof}
+
+\begin{remark}
+    We have not (yet) shown existence of solutions.
+\end{remark}
+
+\begin{corollary}[Contiuous depedence on the boundary data]
+    The solution to     \[\begin{cases}\mathcal{L}u=f & \in\Omega\\ u=g & \in \partial \Omega\end{cases} \] 
+    depends continuously on the boundary data, i.e.
+    \[\max_{x\in \Omega}|u_1(x)-u_2(x)|\leq \max_{x\in \partial \Omega} |g_1(x)-g_2(x)|\]
+\end{corollary}
+
+\begin{proof}
+    Exercise.
+\end{proof}
+
+\begin{definition}
+    The second order partial differential operator $\L$ from (1.13) is called 
+    \underline{\textbf{uniformly elliptic}} if there is an $\alpha>0$ s.t. 
+    \[z^t A(x)z>\alpha \left\Vert z \right\Vert_2^2,z\neq 0.\]
+    $\alpha$ is called the ellipticity constant of $\L$.
+\end{definition}
+
+\begin{corollary}[Contiuous dependence on the right-handed side]
+    Let $\L$ be uniformly elliptic. Then there is a constant $c=c(\Omega,\alpha)$, s.t. for 
+    all solutions $u\in C^2(\Omega)\cap C(\overline{\Omega})$ it holds
+    \[\left\vert u(x) \right\vert \leq \max_{z\in \Gamma} |\underbrace{u(z)}_{=g(z)}|+c\sup_{z\in \Omega}|\underbrace{\L u(z)}_{=f(z)}|\]
+\end{corollary}
+
+\begin{remark}
+    This tells us that small changes in $f$ imply small changes in $u$.
+\end{remark}
+
+\begin{proof}
+    Let $R>0$ s.t. $\Omega\subset B_R(0)$. Set \[w(x)=R^2-\left\Vert x \right\Vert_2^2\geq 0.\]
+    Note that $\frac{\partial^2}{\partial x_i\partial x_j}=-2\delta_{ij}$.
+    \begin{align*}
+        (\L u)(x)=-\sum_{i,j=1}^da_{ij}(x)\frac{\partial^2}{\partial x_i\partial x_j} w(x)=2\sum_{i=1}^d \underbrace{a_{ij}}_{\geq \alpha}
+    \end{align*}
+    because of $z^tA(x)z\geq \alpha \left\Vert z \right\Vert_2^2$.
+    
+    Now, set
+    
+    \[v(t)=\max_{z\in\Gamma}\left\vert u(z) \right\vert + \frac{w(x)}{2}\sup_{z\in \Omega} \left\vert (\L u)(z) \right\vert\]
+
+    This yields:
+
+    \[(\L v)(x) = \frac{(\L w)(x)}{2}\sup_{z\in \Omega} \left\vert (\L u)(z) \right\vert\geq \sup_{z\in \Omega}\left\vert (\L u)(z) \right\vert\geq |(\L u)(x)|\]
+
+    Moreover:
+
+    \begin{align*}geq
+        v(x) \geq \sup_{z\in\Gamma} \left\vert u(z) \right\vert&\geq \left\vert |u(x)| \right\vert, x\in \Omega\\
+        &\geq \pm u(x)
+    \end{align*}
+
+    Apply the comparison principle twice to $u,v$ and $-u,v$ $\implies \pm u \leq v \implies \left\vert u \right\vert\leq v$ (both in $\overline{\Omega}$).
+
+    $\implies |u(x)|\leq \max_{z\in\Gamma}\left\vert u(z) \right\vert + \underbrace{\frac{\overbrace{w(x)}^{\leq R^2}}{2}}{\frac{R^2}{2\alpha}}\sup_{z\in \Omega} \left\vert (\L u)(z) \right\vert$
+
+\end{proof}
+
+\section{Finite difference method}
+
+\subsection{Poisson equation}
+
+\underline{\textbf{Problem:}} Let $\Omega\subset\R^d$ bounded domain, $\Gamma=\partial\Omega$.
+
+$f\in C(\Omega),g\in C(\Gamma)$. We look for $u\in C^2(\Omega)\cap C(\overline{\Gamma})$ s.t.
+
+\[\begin{cases}
+    \Delta u = f & \text{ in } \Omega\\
+    u=g & \text{ on } \Gamma
+\end{cases}.\]
+
+\begin{definition}
+    A solution $u\in C^2(\Omega)\cap C(\overline{\Gamma})$ is called a \underline{\textbf{classical solution}}. For $f=0$, we say that $u$ is harmonic.
+\end{definition}
+
+In this chapter we say solution, but refer to classical solutions.
+
+\underline{\textbf{Question:}} How can we solve (2.1) for rather general domains $\Omega$?
+
+\begin{definition}
+    Let $f\in C(\R^d)$, $1\leq i\leq d$. We define for $h>0$
+    \begin{itemize}
+        \item the \underline{\textbf{forward (finite) difference}} as \[\partial_j^{+h}f=\frac{f(x+he_j)-f(x)}{h}\]
+        \item the \underline{\textbf{backward (finite) difference}} as \[\partial_j^{-h}f=\frac{f(x-he_j)-f(x)}{-h}\]
+        \item the \underline{\textbf{central (finite) difference}} as \[\partial_j^h \frac{f(x+he_j)-f(x-he_j)}{2h}\]
+    \end{itemize}
+\end{definition}
+
+\begin{lemma}
+    Let $f\in C^4(\R^d)$ it holds 
+    \[\frac{\partial f}{\partial x_j}(x)=\partial_j^{\pm h}f(x)+R_1^{\pm} \leq \frac{h}{2}\left\Vert F \right\Vert_{C^2(\R^d)}\]
+    \[\frac{\partial f}{\partial x_j}(x)=\partial_j^{h}f(x)+R_2, R_2\leq \frac{h^2}{6}\left\Vert f \right\Vert_{C^3(\R^d)}\]
+    \[\frac{\partial^2 f}{\partial x_i \partial x_j}(x)=(\partial_j^{+h}\partial_j^{-h} f)(x+R_3)\]
+    \[=\frac{f(x+he_j)-2f(x)+f(x-he_j)}{h^2}+\underbrace{R_3}_{||\leq \frac{h^2}{12}}\left\Vert f \right\Vert_{C^4(\R^d)}\]
+    where $\left\Vert f \right\Vert_{C^k(\R^d)}=\sum_{|\alpha|\leq k} \sup_{x\in \R^d} |\partial^{\alpha} f(x)|$
+\end{lemma}
+
+\begin{proof}
+Exercise.    
+\end{proof}
+
+

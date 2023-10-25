@@ -5,3 +5,7 @@
 \BOOKMARK [2][-]{subsection.1.4}{Helmholz equation}{section.1}% 5
 \BOOKMARK [2][-]{subsection.1.5}{Characterization of partial differential equations}{section.1}% 6
 \BOOKMARK [2][-]{subsection.1.6}{Maximum principle}{section.1}% 7
+\BOOKMARK [1][-]{section.2}{Finite difference method}{}% 8
+\BOOKMARK [2][-]{subsection.2.1}{Poisson equation}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.2}{The discrete maximum principle}{section.2}% 10
+\BOOKMARK [2][-]{subsection.2.3}{Convergence of the finite difference method}{section.2}% 11
